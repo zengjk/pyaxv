@@ -206,9 +206,9 @@ def add_features(df):
     df['figures'] = df['comment'].apply(getting_figure)
     df['num_of_authors'] = df['authors'].apply(len)
     df['title_length'] = df['title'].apply(lambda s: len(s.split()))
-    df['year_of_publish'] = df['published_date'].apply(lambda s: int(s[:4]))
-    df['month_of_publish'] = df['published_date'].apply(lambda s: int(s[5:7]))
-    df['date_of_publish'] = df['published_date'].apply(lambda s: int(s[8:10]))
+    df['year_of_publishing'] = df['published_date'].apply(lambda s: int(s[:4]))
+    df['month_of_publishing'] = df['published_date'].apply(lambda s: int(s[5:7]))
+    df['date_of_publishing'] = df['published_date'].apply(lambda s: int(s[8:10]))
 
     return df
 
