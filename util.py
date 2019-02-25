@@ -12,7 +12,7 @@ import numpy as np
 warnings.filterwarnings('ignore')
 
 
-def obtaining_raw_data(query, category='quant-ph', max_results=1000):
+def obtaining_raw_data(query, category='quant-ph', max_results=1000, verbose=True):
     """
     This function will scrape from arXiv given a piece of query.
 
@@ -51,7 +51,8 @@ def obtaining_raw_data(query, category='quant-ph', max_results=1000):
 
     encoded = urlencode(headers)
     total_url = arxiv_url + encoded
-    print('Fetching from ' + total_url)
+    if verbose:
+        print('Fetching from ' + total_url)
     html = urlopen(total_url).read()
     html = BeautifulSoup(html)
     entries = html.find_all('entry')
@@ -99,7 +100,7 @@ def generate_df(entries):
     return df
 
 
-def getting_data(query_list, category='quant-ph', max_results=1000):
+def getting_data(query_list, category='quant-ph', max_results=1000, verbose=True):
     """
     A wrap up of data crawling functions.
     
@@ -128,10 +129,12 @@ def getting_data(query_list, category='quant-ph', max_results=1000):
     else:
         categories = [category]
 
+    print('Start fetching...')
+    
     for query in queries:
         for cat in categories:
             entries = obtaining_raw_data(
-                query, category=cat, max_results=max_results)
+                query, category=cat, max_results=max_results, verbose=verbose)
             new_df = generate_df(entries)
             dfs.append(new_df)
 
